@@ -1,0 +1,7 @@
+The -1, -C, -x, and -l options all override each other; the last one specified determines the format used.
+
+     The -c and -u options override each other; the last one specified determines the file time used.
+
+     The -B, -b, -w, and -q options all override each other; the last one specified determines the format used for non-printable characters.
+
+     The -H, -L and -P options all override each other (either partially or fully); they are applied in the order specified.
