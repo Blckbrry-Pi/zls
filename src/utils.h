@@ -1,5 +1,5 @@
 #ifndef ZLS_UTILS_H
-#define ZLS_UTILS_H 1
+#define ZLS_UTILS_H
 
 
 #define CALL_CLOSURE(closure, input) (*closure.func)(closure.closureData, input)
@@ -13,11 +13,6 @@
 typedef struct dirent DirEnt;
 
 
-// typedef struct {
-    
-// } TraceStruct;
-
-// #define TRACE(funcName, ...) 
 
 #endif
 
