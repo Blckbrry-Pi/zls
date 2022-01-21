@@ -5,3 +5,13 @@ The -1, -C, -x, and -l options all override each other; the last one specified d
      The -B, -b, -w, and -q options all override each other; the last one specified determines the format used for non-printable characters.
 
      The -H, -L and -P options all override each other (either partially or fully); they are applied in the order specified.
+
+supported flags:
+     -i: inode -- zsofia
+     -A: include .directories but not . and ... -- skyler
+     -a: include .directories -- skyler
+     -l: long format --zsofia
+     -z: display all files like "zzzzzz.zz" -- zsofia
+     -Y: clor -- skyler
+     -1: 1 file per line -- zsofia
+     -R -- skuler
