@@ -1,4 +1,4 @@
-#include "../dirtraversal.c"
+#include "../dirtraversal.h"
 
 int main() {
     return 0;
