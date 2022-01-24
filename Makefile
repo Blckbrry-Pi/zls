@@ -1,7 +1,7 @@
 CC = gcc
 
 
-LIBS = utils dirtraversal args
+LIBS = utils dirtraversal argparse
 LIB_OBJECTS = $(addprefix $(BUILD_DIR)$(LIB_SUB_DIR), $(LIBS:=.o))
 LIB_TESTS = $(addprefix $(BUILD_DIR), $(LIBS:=_test))
 

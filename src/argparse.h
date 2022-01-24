@@ -11,6 +11,4 @@ typedef struct{
     char* file;
 } Argz;
 
-Argz parseArgz(int argc, char** argv){
-
-}
+Argz parseArgz(int argc, char** argv);

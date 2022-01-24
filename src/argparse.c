@@ -55,4 +55,5 @@ Argz parseArgz(int argc, char** argv){
 
 		
 	}
+	return argz;
 }
