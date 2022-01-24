@@ -2,9 +2,9 @@
 #include<stdbool.h>
 #include "argparse.h"
 
-Args parseArgz(int argc, char** argv){
+Argz parseArgz(int argc, char** argv){
 	
-	Args argz;
+	Argz argz;
 
 	printf("argc=%d\n", argc);
 	//parsez argumentz

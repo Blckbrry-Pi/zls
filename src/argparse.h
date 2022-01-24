@@ -9,8 +9,8 @@ typedef struct{
     bool one;
     bool R;
     char* file;
-}Args;
+} Argz;
 
-Args parseArgz(int argc, char** argv){
+Argz parseArgz(int argc, char** argv){
 
 }
