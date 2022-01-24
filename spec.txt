@@ -14,4 +14,4 @@ supported flags:
      -z: display all files like "zzzzzz.zz" -- zsofia
      -Y: clor -- skyler
      -1: 1 file per line -- zsofia
-     -R -- skuler
+     -R -- skyler
