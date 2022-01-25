@@ -4,7 +4,7 @@
 
 Argz parseArgz(int argc, char** argv){
 	
-	Argz argz;
+	Argz argz = {0};
 
 	printf("argc=%d\n", argc);
 	//parsez argumentz
