@@ -17,7 +17,10 @@ Argz parseArgz(int argc, char** argv){
 				break;
 			}
 			pointer++;
+			//printf ("Parsing options, parse stanza %s\n", pointer);
+			//printf("argz: -i: %d\n-A: %d\n-a: %d\n-l: %d\n-z: %d\n-Y: %d\n-1: %d\n-R: %d\n",argz.i,argz.A,argz.a,argz.l,argz.z,argz.Y,argz.one,argz.R);
 			while(*pointer!='\0'){
+				//printf("parse char %c in stanza\n", *pointer);
 				switch(*pointer){
 					case 'i':
 						argz.i=true;
@@ -44,8 +47,8 @@ Argz parseArgz(int argc, char** argv){
 						argz.R=true;
 						break;
 				}
-
-				printf("flag -%c set\n",*pointer);
+				//printf("argz: -i: %d\n-A: %d\n-a: %d\n-l: %d\n-z: %d\n-Y: %d\n-1: %d\n-R: %d\n",argz.i,argz.A,argz.a,argz.l,argz.z,argz.Y,argz.one,argz.R);
+				//printf("flag -%c set\n",*pointer);
 				pointer++;
 			}
 			

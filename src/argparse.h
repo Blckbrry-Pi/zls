@@ -10,5 +10,4 @@ typedef struct{
     bool R;
     char* file;
 } Argz;
-
 Argz parseArgz(int argc, char** argv);
