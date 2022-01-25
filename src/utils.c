@@ -1,27 +1,36 @@
 #include "utils.h"
 
-/* TESTER CODE:
+#include <stdarg.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 
-CREATE_CLOSURE_TYPE(int, int, Closure__int_int);
+char *dsprintf(char *fmt, ...) {
+    size_t len;
+    char *out;
 
-int x(int data, void *input) {
-    printf("%s\t\tData: %d\n", (char *) input, data);
-    return data - 1;
+    /* Declare a va_list type variable */
+    va_list args1;
+    va_list args2;
+
+    /* Initialise the va_list variable with the ... after fmt */
+
+    va_start(args1, fmt);
+    va_copy(args2, args1);
+
+    /* Forward the '...' to vprintf */
+    len = vsnprintf(NULL, 0, fmt, args1);
+    va_end(args1);
+
+    out = malloc(sizeof(char) * (len + 1));
+
+
+    vsprintf(out, fmt, args1);
+    va_end(args2);
+
+    return out;
 }
 
-
-int main() {
-    Closure__int_int cl = (Closure__int_int) {
-        x,
-        100
-    };
-
-    int z = CALL_CLOSURE(cl, (void *) "Hello!");
-
-    printf("Return value: %d\n", z);
-
-    return cl.closureData;
+void panic(const char *reason) {
+    exit(1);
 }
-*/

@@ -1,3 +1,14 @@
+/**
+ * @file dirtraversal.h
+ * @author Skyler Calaman
+ * @brief The header file declaring the main directory-walking function.
+ * @version 0.1
+ * @date 2022-01-23
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include "utils.h"
 
 #ifndef ZLS_DIRTRAVERSE_H

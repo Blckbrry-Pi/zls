@@ -1,5 +1,6 @@
 CC = gcc
 
+EXTRA_FLAGS = -pedantic
 
 LIBS = utils dirtraversal argparse
 LIB_OBJECTS = $(addprefix $(BUILD_DIR)$(LIB_SUB_DIR), $(LIBS:=.o))
@@ -19,17 +20,17 @@ EXEC_NAME = zls
 all : main tests
 
 main : $(LIB_OBJECTS) 
-	$(CC) $(SRC_DIR)$(MAIN) $(LIB_OBJECTS) -o $(BUILD_DIR)$(EXEC_NAME)
+	$(CC) $(EXTRA_FLAGS) $(SRC_DIR)$(MAIN) $(LIB_OBJECTS) -o $(BUILD_DIR)$(EXEC_NAME)
 
 tests : $(LIB_TESTS)
 
 $(BUILD_DIR)%_test : $(BUILD_DIR)$(LIB_SUB_DIR)%.o
 	mkdir -p $(@D)
-	$(CC) $(TEST_SRC_DIR)$(notdir $@).c -o $@
+	$(CC) $(EXTRA_FLAGS) $(LIB_OBJECTS) $(TEST_SRC_DIR)$(notdir $@).c -o $@
 
 $(BUILD_DIR)$(LIB_SUB_DIR)%.o : $(SRC_DIR)%.c 
 	mkdir -p $(@D)
-	$(CC) $< -c -o $@
+	$(CC) $(EXTRA_FLAGS) $< -c -o $@
 
 clean:
-	rm -r build
+	rm -r build || true

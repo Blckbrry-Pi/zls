@@ -1,4 +1,4 @@
-#include "../argparse.c"
+#include "../argparse.h"
 
 int main(int argc,char** argv) {
     Argz argz=parseArgz(argc,argv);

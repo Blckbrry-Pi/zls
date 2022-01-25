@@ -39,4 +39,6 @@ int main(int argc, char **argv) {
 
     dirForEach(".", (DirTraversalClosure) { printer, &(PrinterData) { w.ws_col, 0, maxLen } });
     printf("\n");
+
+    return 0;
 }
