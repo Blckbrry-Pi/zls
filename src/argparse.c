@@ -6,7 +6,7 @@ Argz parseArgz(int argc, char** argv){
 	
 	Argz argz = {0};
 
-	printf("argc=%d\n", argc);
+	//printf("argc=%d\n", argc);
 	//parsez argumentz
 	if(argc>=1){
 		//check for flagz

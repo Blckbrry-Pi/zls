@@ -17,7 +17,6 @@
 } structName
 
 
-#include <dirent.h>
 typedef struct dirent DirEnt;
 
 
@@ -74,5 +73,12 @@ if ((_ ## match) &&  (__ ## match (result))) \
 char *dsprintf(char *fmt, ...);
 
 void panic(const char *reason);
+
+
+#define CREATE_LINKED_LIST_TYPE(dataType, structName) typedef struct { \
+    structName *next; \
+    dataType data; \
+} structName;
+
 
 #endif
