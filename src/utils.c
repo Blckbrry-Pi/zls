@@ -34,3 +34,9 @@ char *dsprintf(char *fmt, ...) {
 void panic(const char *reason) {
     exit(1);
 }
+
+
+char *removeControlChars(char *input) {
+    for (int i = 0; input[i] != '\0'; i++) if (iscntrl(input[i])) input[i] = '?';
+    return input;
+}

@@ -8,6 +8,8 @@
 #ifndef ZLS_UTILS_H
 #define ZLS_UTILS_H
 
+#include <stdbool.h>
+#include <ctype.h>
 
 #define CALL_CLOSURE(closure, input) (*closure.func)(closure.closureData, input)
 
@@ -29,7 +31,6 @@ typedef struct {
 } Backtrace;
 
 
-#include <stdbool.h>
 
 #define DECLARE_RESULT_TYPE(OkType) typedef struct {  \
     bool isOk;                   \
@@ -71,6 +72,10 @@ if ((_ ## match) &&  (__ ## match (result))) \
 
 
 char *dsprintf(char *fmt, ...);
+
+
+char *removeControlChars(char *input);
+
 
 void panic(const char *reason);
 

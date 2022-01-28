@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
     pd = (PrinterData) { w.ws_col, 0, textSizes.length };
     pc = (PrinterClosure) { printer, &pd };
 
-    for (int i = 0; i < textSizes.count; i++) if (filterByNameAndArgz(fileNameArr[i], argz)) CALL_CLOSURE(pc, fileNameArr[i]);
+    for (int i = 0; i < textSizes.count; i++) if (filterByNameAndArgz(fileNameArr[i], argz)) CALL_CLOSURE(pc, removeControlChars(fileNameArr[i]));
     printf("\n");
 
     return 0;
