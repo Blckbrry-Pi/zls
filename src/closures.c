@@ -23,10 +23,12 @@ void getStrings(void *outArrData_vp, void *entry_vp) {
 }
 
 void printer(PrinterData *printerData, void *filename) {
-    if (printerData->currPos + printerData->entryWidth + 8 >= printerData->width) {
+    int extraWidth = 8 - printerData->entryWidth % 8 + printerData->entryWidth;
+
+    if (printerData->currPos + extraWidth >= printerData->width) {
         printf("\n");
         printerData->currPos = 0;
     }
     printf("%-*s\t", (int) printerData->entryWidth, (char *) filename);
-    printerData->currPos += 8 - printerData->entryWidth % 8 + printerData->entryWidth;
+    printerData->currPos += extraWidth;
 }
