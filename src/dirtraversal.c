@@ -26,7 +26,7 @@ EDirTraversalErrorType dirForEach(char *dirName, DirTraversalClosure forEachFunc
     DIR *dir;
     DirEnt *entry;
 
-    dir = opendir(".");
+    dir = opendir(dirName);
 
     if (!dir) {
         switch (errno) {
