@@ -11,7 +11,7 @@ Argz parseArgz(int argc, char** argv){
 	if(argc>=1){
 		//check for flagz
 		int argzIndex;
-		for (argzIndex=1; argzIndex<argc;argzIndex++){
+		for (argzIndex=1; argzIndex<argc;argzIndex++) {
 			char* pointer=argv[argzIndex];
 			if(pointer[0]!='-'){
 				break;
@@ -54,9 +54,8 @@ Argz parseArgz(int argc, char** argv){
 			
 		}
 		//no more flagz, parse filenamez
-			argz.file=argv[argzIndex];
-
-		
+		if (argzIndex < argc) argz.file=argv[argzIndex];
+		else argz.file = ".";
 	}
 	return argz;
 }

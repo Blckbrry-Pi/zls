@@ -2,6 +2,7 @@
 #include "dirtraversal.h"
 #include "utils.h"
 #include "closures.h"
+#include "inforetriever.h"
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -9,8 +10,8 @@
 #include <strings.h>
 #include <sys/ioctl.h>
 
-int stringComparer(const void *a, const void *b) {
-    return strcmp(*(const char **) a, *(const char **) b);
+int fileInfoComparer(const void *a, const void *b) {
+    return strcmp(((FileInfo *) a)->name, ((FileInfo *) b)->name);
 }
 
 
@@ -26,30 +27,63 @@ bool filterByNameAndArgz(char *name, Argz argz) {
 
 
 int main(int argc, char **argv) {
+    int i;
+
     Argz argz;
 
-    LenCountData textSizes;
+    size_t entryCount;
+    FileInfo *fileArr;
+    EntryList entryList;
+    LenData textSizes;
+    PrinterData printerData;
     
+    LenDataClosure ldc;
+    PrinterClosure pdc;
+
     struct winsize w;
-    PrinterData pd;
-    PrinterClosure pc;
+
 
     argz = parseArgz(argc, argv);
 
-    textSizes = (LenCountData) { 0, 0 };
-    dirForEach(".", (DirTraversalClosure) { gatherLengthAndCount, &textSizes });
+    entryCount = 0;
+    dirForEach(argz.file, (DirTraversalClosure) { countEntries, &entryCount });
 
-    char **fileNameArr = malloc(textSizes.count * sizeof(char *));
-    for (size_t i = 0; i < textSizes.count; i++) fileNameArr[i] = malloc((textSizes.length + 1) * sizeof(char));
-    dirForEach(".", (DirTraversalClosure) { getStrings, &(GetStrData) {fileNameArr, 0} });
+    fileArr = malloc(entryCount * sizeof(FileInfo));
 
-    qsort(fileNameArr, textSizes.count, sizeof(char *), stringComparer);
+    entryList = (EntryList) { 0, entryCount, fileArr, argz.file };
+    dirForEach(argz.file, (DirTraversalClosure) { addEntry, &entryList });
+
+
+    qsort(fileArr, entryCount, sizeof(FileInfo), fileInfoComparer);
+
+
+    textSizes = (LenData) {0};
+
+    ldc = (LenDataClosure) {
+        gatherLengths,
+        &textSizes,
+    };
+
+
+    for (i = 0; i < entryCount; i++) CALL_CLOSURE(ldc, &fileArr[i]);
 
     ioctl(0, TIOCGWINSZ, &w);
-    pd = (PrinterData) { w.ws_col, 0, textSizes.length };
-    pc = (PrinterClosure) { printer, &pd };
 
-    for (int i = 0; i < textSizes.count; i++) if (filterByNameAndArgz(fileNameArr[i], argz)) CALL_CLOSURE(pc, removeControlChars(fileNameArr[i]));
+
+    printerData = (PrinterData) {
+        w.ws_col,
+        0,
+        textSizes
+    };
+    pdc = (PrinterClosure) {
+        printer,
+        &printerData
+    };
+
+    for (i = 0; i < entryCount; i++) if (filterByNameAndArgz(fileArr[i].name, argz)) CALL_CLOSURE(
+        pdc,
+        &fileArr[i]
+    );
     printf("\n");
 
     return 0;

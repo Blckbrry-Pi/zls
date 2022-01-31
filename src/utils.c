@@ -6,6 +6,7 @@
 
 
 char *dsprintf(char *fmt, ...) {
+
     size_t len;
     char *out;
 
@@ -31,7 +32,19 @@ char *dsprintf(char *fmt, ...) {
     return out;
 }
 
+unsigned char numberLength(size_t number) {
+    unsigned char count = 0;
+    size_t currentNum = number;
+
+    do {
+        count++;
+    } while (currentNum /= 10);
+
+    return count;
+}
+
 void panic(const char *reason) {
+    printf("Panic called! Reason: %s\n", reason);
     exit(1);
 }
 

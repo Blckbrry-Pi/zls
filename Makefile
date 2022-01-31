@@ -2,7 +2,7 @@ CC = gcc
 
 EXTRA_FLAGS = -pedantic
 
-LIBS = utils dirtraversal argparse closures
+LIBS = utils dirtraversal argparse closures inforetriever
 LIB_OBJECTS = $(addprefix $(BUILD_DIR)$(LIB_SUB_DIR), $(LIBS:=.o))
 LIB_TESTS = $(addprefix $(BUILD_DIR), $(LIBS:=_test))
 
@@ -19,7 +19,8 @@ EXEC_NAME = zls
 
 all : main tests
 
-main : $(LIB_OBJECTS) 
+main : $(LIB_OBJECTS)
+	mkdir -p $(BUILD_DIR)
 	$(CC) $(EXTRA_FLAGS) $(SRC_DIR)$(MAIN) $(LIB_OBJECTS) -o $(BUILD_DIR)$(EXEC_NAME)
 
 tests : $(LIB_TESTS)
