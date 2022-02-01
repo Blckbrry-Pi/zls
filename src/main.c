@@ -27,19 +27,61 @@ bool filterByNameAndArgz(char *name, Argz argz) {
 
 
 int main(int argc, char **argv) {
+    /**
+     * @brief Iterator variable.
+     * 
+     */
     int i;
 
+    /**
+     * @brief The parsed arguments.
+     * 
+     */
     Argz argz;
 
+    /**
+     * @brief Holds the number of entries in the directory.
+     * 
+     */
     size_t entryCount;
+    /**
+     * @brief The actual array of entry data.
+     * 
+     */
     FileInfo *fileArr;
+    /**
+     * @brief Contains the data for the closure that collects the file info.
+     * 
+     */
     EntryList entryList;
+    /**
+     * @brief Holds the relevant length data.
+     * 
+     */
     LenData textSizes;
+    /**
+     * @brief Holds the data for the printing closure.
+     * 
+     */
     PrinterData printerData;
     
+    /**
+     * @brief Holds the closure that calculates the maximum length of
+     * different attributes of the entries.
+     * 
+     */
     LenDataClosure ldc;
+    /**
+     * @brief Holds the closure that prints the data out.
+     * 
+     */
     PrinterClosure pdc;
 
+    /**
+     * @brief Just a simple struct used for holding the width and height
+     * of the terminal.
+     * 
+     */
     struct winsize w;
 
 

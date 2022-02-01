@@ -3,13 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+// ALSO UNUSED
+/*
 DECLARE_RESULT_TYPE(char);
 
 RESULT(char) z() {
     RESULT(char) x;
     
-    if (/* some integer*/ true) x = (RESULT(char)) OK('b');
+    if (true) x = (RESULT(char)) OK('b');
     else {
         void *vp = NULL;
         x = (RESULT(char)) ERR(&vp, "aaaaaaaaaaaaaaaaa");
@@ -35,3 +36,4 @@ int main() {
 
     return 0;
 }
+*/

@@ -11,8 +11,16 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+/**
+ * @brief Calls a closure struct.
+ * 
+ */
 #define CALL_CLOSURE(closure, input) (*closure.func)(closure.closureData, input)
 
+/**
+ * @brief Creates a new type of closure.
+ * 
+ */
 #define CREATE_CLOSURE_TYPE(returnType, dataType, structName) typedef struct { \
     returnType (*func)(dataType, void *); \
     dataType closureData; \
@@ -21,8 +29,10 @@
 
 typedef struct dirent DirEnt;
 
-
+// UNUSED
+/*
 #define BACKTRACE_MAX 1000
+
 
 
 typedef struct {
@@ -68,16 +78,40 @@ typedef struct {
 if ((_ ## match) &&  (__ ## match (result))) \
     for (int RES_OK_AS__TEMP_VAR_1 = 0; RES_OK_AS__TEMP_VAR_1 == 0; RES_OK_AS__TEMP_VAR_1++) \
         for (binding = __GET_ ## match (result); RES_OK_AS__TEMP_VAR_1 == 0; RES_OK_AS__TEMP_VAR_1++)
+*/
 
-
-
+/**
+ * @brief Similar to sprintf, except it allocates the buffer for itself.
+ * 
+ */
 char *dsprintf(char *fmt, ...);
 
+/**
+ * @brief Takes a number and returns the number of characters in it (to
+ * allow for alignment of lengths between different numbers.
+ * 
+ * @param number The number to get the number of digits from.
+ * @return The number of digits in the character.
+ */
 unsigned char numberLength(size_t number);
 
+/**
+ * @brief Replaces control characters in place (and also returns) in a
+ * string. 
+ * 
+ * @param input The string to replace the characters in.
+ * @return The same string passed in, with the control characters
+ * replaced.
+ */
 char *removeControlChars(char *input);
 
-
+/**
+ * @brief Call this function when you want to exit the program because
+ * of an error that is not recoverable and can't be passed higher on the
+ * call stack.
+ * 
+ * @param reason 
+ */
 void panic(const char *reason);
 
 
