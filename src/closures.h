@@ -30,12 +30,6 @@ CREATE_CLOSURE_TYPE(void, LenData *, LenDataClosure);
 
 void gatherLengths(LenData *textSizes, void *file_vp);
 
-typedef struct {
-    char **outArr;
-    size_t position;
-} GetStrData;
-
-void getStrings(void *outArrData_vp, void *entry_vp);
 
 
 

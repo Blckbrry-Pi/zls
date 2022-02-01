@@ -57,13 +57,6 @@ void gatherLengths(LenData *textSizes, void *file_vp) {
     IF_MORE_SET(textSizes->dateLength, dateLen);
 }
 
-void getStrings(void *outArrData_vp, void *entry_vp) {
-    GetStrData *outArrData = (GetStrData *) outArrData_vp;
-    DirEnt *entry = (DirEnt *) entry_vp;
-
-    strcpy(outArrData->outArr[outArrData->position++], entry->d_name);
-}
-
 void printer(PrinterData *printerData, void *file_vp) {
     FileInfo *file = (FileInfo *) file_vp;
 
