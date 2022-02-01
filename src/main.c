@@ -50,7 +50,8 @@ int main(int argc, char **argv) {
      */
     FileInfo *fileArr;
     /**
-     * @brief Contains the data for the closure that collects the file info.
+     * @brief Contains the data for the closure that collects the file
+     * info.
      * 
      */
     EntryList entryList;
@@ -84,44 +85,54 @@ int main(int argc, char **argv) {
      */
     struct winsize w;
 
+    // Parses the arguments
+    argz = parseArgz(argc, argv); 
 
-    argz = parseArgz(argc, argv);
-
+    // Counts the number of entries in the directory.
     entryCount = 0;
     dirForEach(argz.file, (DirTraversalClosure) { countEntries, &entryCount });
 
+    // Creates an array that can contain the data for the number of
+    // files in the directory.
     fileArr = malloc(entryCount * sizeof(FileInfo));
 
+    // Creates a list that can have new file data appended to it.
     entryList = (EntryList) { 0, entryCount, fileArr, argz.file };
     dirForEach(argz.file, (DirTraversalClosure) { addEntry, &entryList });
 
-
+    // Sorts the data by name, could be expanded to be more general
+    // later.
     qsort(fileArr, entryCount, sizeof(FileInfo), fileInfoComparer);
 
-
+    // Initializes all of the lengths to 0.
     textSizes = (LenData) {0};
 
+    // Creates the closure that will update the length data when
+    // iterating through the directory entries.
     ldc = (LenDataClosure) {
         gatherLengths,
         &textSizes,
     };
 
-
+    // Iterate through the directory entries.
     for (i = 0; i < entryCount; i++) CALL_CLOSURE(ldc, &fileArr[i]);
 
+    // Get terminal size and put it in w.
     ioctl(0, TIOCGWINSZ, &w);
 
-
+    // Initialize the printer data.
     printerData = (PrinterData) {
         w.ws_col,
         0,
         textSizes
     };
+    // Create the printer data closure.
     pdc = (PrinterClosure) {
         printer,
         &printerData
     };
 
+    // Iterate through the entries and print each of them 1 by 1.
     for (i = 0; i < entryCount; i++) if (filterByNameAndArgz(fileArr[i].name, argz)) CALL_CLOSURE(
         pdc,
         &fileArr[i]
