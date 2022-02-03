@@ -38,6 +38,7 @@ void addEntry(void *entryList_vp, void *entry_vp) {
 void gatherLengths(LenData *textSizes, void *file_vp) {
     FileInfo *file = (FileInfo *) file_vp;
 
+    unsigned char inodeLen = numberLength(file->inodeNum);
     unsigned char fMetaLen = numberLength(file->fileOrMetaSize);
     unsigned char linkLen = numberLength(file->linkCount);
     
@@ -48,6 +49,7 @@ void gatherLengths(LenData *textSizes, void *file_vp) {
     size_t dateLen = 12; // TODO: MAKE SURE THIS IS CORRECT!
     
 
+    IF_MORE_SET(textSizes->inodeLength,inodeLen);
     IF_MORE_SET(textSizes->fOrMetaSizeLength, fMetaLen);
     IF_MORE_SET(textSizes->linkLength, linkLen);
 
@@ -58,7 +60,8 @@ void gatherLengths(LenData *textSizes, void *file_vp) {
     IF_MORE_SET(textSizes->dateLength, dateLen);
 }
 
-void printer(PrinterData *printerData, void *file_vp) {
+//TODO: check for -i and include inode, cehck for -z and nclude zzzz.z.zz.zzzz
+void basicPrinter(PrinterData *printerData, void *file_vp) {
     FileInfo *file = (FileInfo *) file_vp;
 
     int extraWidth = 8 - printerData->entryWidths.nameLength % 8 + printerData->entryWidths.nameLength;

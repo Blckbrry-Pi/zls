@@ -1,6 +1,7 @@
 #ifndef ZLS_CLOSURES_H
 #define ZLS_CLOSURES_H
 
+#include "argparse.h"
 #include "utils.h"
 #include "inforetriever.h"
 #include <stdio.h>
@@ -24,6 +25,7 @@ typedef struct {
     unsigned char fOrMetaSizeLength;
     size_t dateLength;
     size_t nameLength;
+    unsigned char inodeLength;
 } LenData;
 
 CREATE_CLOSURE_TYPE(void, LenData *, LenDataClosure);
@@ -41,6 +43,8 @@ typedef struct {
 
 CREATE_CLOSURE_TYPE(void, PrinterData *, PrinterClosure);
 
-void printer(PrinterData *printerData, void *entry_vp);
+void basicPrinter(PrinterData *printerData, void *entry_vp);
+
+
 
 #endif
