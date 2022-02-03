@@ -1,6 +1,7 @@
 #ifndef ZLS_INFORETRIEVER_H
 #define ZLS_INFORETRIEVER_H
 
+#include <sys/stat.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <time.h>
@@ -43,6 +44,7 @@ typedef struct {
     size_t fileOrMetaSize; // File size, metadata size, link size, or other, depending on the entry type.
     time_t lastModified;   // Time of last modification.
     char *name;            // The name of the entry.
+    ino_t inodeNum;        //Inode number (added 2/2/22 by zsofia) 
 } FileInfo;
 
 /**

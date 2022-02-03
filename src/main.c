@@ -133,10 +133,12 @@ int main(int argc, char **argv) {
     };
 
     // Iterate through the entries and print each of them 1 by 1.
-    for (i = 0; i < entryCount; i++) if (filterByNameAndArgz(fileArr[i].name, argz)) CALL_CLOSURE(
-        pdc,
-        &fileArr[i]
-    );
+    for (i = 0; i < entryCount; i++){
+        if (filterByNameAndArgz(fileArr[i].name, argz)){
+            CALL_CLOSURE(pdc, &fileArr[i]);
+            
+        }
+    }
     printf("\n");
 
     return 0;

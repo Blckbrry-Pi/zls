@@ -34,6 +34,7 @@ void addEntry(void *entryList_vp, void *entry_vp) {
     free(path);
 }
 
+//get lengths of output filename strings 
 void gatherLengths(LenData *textSizes, void *file_vp) {
     FileInfo *file = (FileInfo *) file_vp;
 
