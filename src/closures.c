@@ -62,14 +62,31 @@ void gatherLengths(LenData *textSizes, void *file_vp) {
 
 //TODO: check for -i and include inode, cehck for -z and nclude zzzz.z.zz.zzzz
 void basicPrinter(PrinterData *printerData, void *file_vp) {
+    
     FileInfo *file = (FileInfo *) file_vp;
 
-    int extraWidth = 8 - printerData->entryWidths.nameLength % 8 + printerData->entryWidths.nameLength;
+    int extraWidth;
 
+    if(printerData->argz.i){
+        size_t totalLength = printerData->entryWidths.nameLength + 1 + printerData->entryWidths.inodeLength;
+        extraWidth = 8 - totalLength % 8 + totalLength; 
+    }
+    else{
+        extraWidth = 8 - printerData->entryWidths.nameLength % 8 + printerData->entryWidths.nameLength;
+    }
+    
     if (printerData->currPos + extraWidth >= printerData->width) {
         printf("\n");
         printerData->currPos = 0;
     }
-    printf("%-*s\t", (int) printerData->entryWidths.nameLength, file->name);
+
+    if(printerData->argz.i){
+        printf("%zd %-*s\t", file->inodeNum, (int) printerData->entryWidths.nameLength, file->name); 
+    }
+    else{
+        printf("%-*s\t", (int) printerData->entryWidths.nameLength, file->name);
+    }
+    
+
     printerData->currPos += extraWidth;
 }

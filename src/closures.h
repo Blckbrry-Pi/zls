@@ -39,6 +39,7 @@ typedef struct {
     size_t width;
     size_t currPos;
     LenData entryWidths;
+    Argz argz;
 } PrinterData;
 
 CREATE_CLOSURE_TYPE(void, PrinterData *, PrinterClosure);

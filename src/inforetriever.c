@@ -62,8 +62,8 @@ FileInfo infoFromPath(char *name, char *path) {
         GET_PERM_NUMBER(infoStatFormat.st_mode & S_IRWXG, S_IRGRP, S_IWGRP, S_IXGRP),
         GET_PERM_NUMBER(infoStatFormat.st_mode & S_IRWXO, S_IROTH, S_IWOTH, S_IXOTH),
     };
-
-    infoOutput.inodeNum = infoStatFormat.st_ino;
+    
+    //infoOutput.inodeNum = infoStatFormat.st_ino;
 
     return infoOutput;
 }
