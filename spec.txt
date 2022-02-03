@@ -7,11 +7,11 @@ The -1, -C, -x, and -l options all override each other; the last one specified d
      The -H, -L and -P options all override each other (either partially or fully); they are applied in the order specified.
 
 supported flags:
-     -i: inode -- zsofia
-     -A: include .directories but not . and ... -- skyler
-     -a: include .directories -- skyler
-     -l: long format --zsofia
-     -z: display all files like "zzzzzz.zz" -- zsofia
-     -Y: clor -- skyler
-     -1: 1 file per line -- zsofia
-     -R -- skyler
+     -i: inode -- zsofia                                    (Basic printer closure)
+     -A: include .directories but not . and ... -- skyler   (Depends)
+     -a: include .directories -- skyler                     (Depends)
+     -l: long format --zsofia                               (Line printer closure)
+     -z: display all files like "zzzzzz.zz" -- zsofia       (Basic printer closure)
+     -Y: clor -- skyler                                     (Basic printer closure)
+     -1: 1 file per line -- zsofia                          (Line printer closure)
+     -R -- skyler                                           (Help, I have no idea.)
