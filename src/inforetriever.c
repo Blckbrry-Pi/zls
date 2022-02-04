@@ -3,7 +3,7 @@
 #include "inforetriever.h"
 #include "utils.h"
 
-#define GET_PERM_NUMBER(num, readPerm, writePerm, execPerm) (((num && readPerm) << 2) + ((num && writePerm) << 1) + ((num && execPerm) << 0))
+#define GET_PERM_NUMBER(num, readPerm, writePerm, execPerm) (((num & readPerm) ? (1 << 2) : 0) + ((num & writePerm) ? (1 << 1) : 0) + ((num & execPerm) ? (1 << 0) : 0))
 
 FileInfo infoFromPath(char *name, char *path) {
     struct stat infoStatFormat;

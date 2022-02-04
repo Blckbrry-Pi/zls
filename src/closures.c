@@ -1,6 +1,7 @@
 #include "closures.h"
 #include "utils.h"
 #include "inforetriever.h"
+#include "colors.h"
 
 #include <dirent.h>
 #include <stdio.h>
@@ -81,10 +82,10 @@ void basicPrinter(PrinterData *printerData, void *file_vp) {
     }
 
     if(printerData->argz.i){
-        printf("%zd %-*s\t", file->inodeNum, (int) printerData->entryWidths.nameLength, file->name); 
+        printf("%zd %s%-*s%s\t", file->inodeNum, getEntryColor(file), (int) printerData->entryWidths.nameLength, file->name, fi); 
     }
     else{
-        printf("%-*s\t", (int) printerData->entryWidths.nameLength, file->name);
+        printf("%s%-*s%s\t", getEntryColor(file), (int) printerData->entryWidths.nameLength, file->name, fi);
     }
     
 

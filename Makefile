@@ -2,7 +2,7 @@ CC = gcc
 
 EXTRA_FLAGS = -pedantic -g
 
-LIBS = utils dirtraversal argparse closures inforetriever
+LIBS = utils dirtraversal argparse closures inforetriever colors
 LIB_OBJECTS = $(addprefix $(BUILD_DIR)$(LIB_SUB_DIR), $(LIBS:=.o))
 LIB_TESTS = $(addprefix $(BUILD_DIR), $(LIBS:=_test))
 
