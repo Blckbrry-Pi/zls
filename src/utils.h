@@ -10,6 +10,7 @@
 
 #include <stdbool.h>
 #include <ctype.h>
+#include <stddef.h>
 
 /**
  * @brief Calls a closure struct.
