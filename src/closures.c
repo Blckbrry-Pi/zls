@@ -82,7 +82,7 @@ void basicPrinter(PrinterData *printerData, void *file_vp) {
         printerData->currPos = 0;
     }
 
-    if(printerData->argz.i) printf("%llu ", (unsigned long long) file->inodeNum);
+    if(printerData->argz.i) printf("%*llu ", entryWidths->inodeLength, (unsigned long long) file->inodeNum);
     printf("%s%-*s%s\t", printerData->argz.Y ? getEntryColor(file) : fi, (int) entryWidths->nameLength, file->name, fi);
     
 
