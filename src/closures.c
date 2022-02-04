@@ -66,14 +66,15 @@ void basicPrinter(PrinterData *printerData, void *file_vp) {
     
     FileInfo *file = (FileInfo *) file_vp;
 
+    LenData *entryWidths = &printerData->entryWidths;
+
     int extraWidth;
 
     if(printerData->argz.i){
-        size_t totalLength = printerData->entryWidths.nameLength + 1 + printerData->entryWidths.inodeLength;
-        extraWidth = 8 - totalLength % 8 + totalLength; 
+        extraWidth = calcPaddedWidth(entryWidths->nameLength + 1 + entryWidths->inodeLength); 
     }
     else{
-        extraWidth = 8 - printerData->entryWidths.nameLength % 8 + printerData->entryWidths.nameLength;
+        extraWidth = calcPaddedWidth(entryWidths->nameLength);
     }
     
     if (printerData->currPos + extraWidth >= printerData->width) {
@@ -82,10 +83,10 @@ void basicPrinter(PrinterData *printerData, void *file_vp) {
     }
 
     if(printerData->argz.i){
-        printf("%zd %s%-*s%s\t", file->inodeNum, getEntryColor(file), (int) printerData->entryWidths.nameLength, file->name, fi); 
+        printf("%zd %s%-*s%s\t", file->inodeNum, getEntryColor(file), (int) entryWidths->nameLength, file->name, fi); 
     }
     else{
-        printf("%s%-*s%s\t", getEntryColor(file), (int) printerData->entryWidths.nameLength, file->name, fi);
+        printf("%s%-*s%s\t", getEntryColor(file), (int) entryWidths->nameLength, file->name, fi);
     }
     
 

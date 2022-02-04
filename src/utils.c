@@ -53,3 +53,7 @@ char *removeControlChars(char *input) {
     for (int i = 0; input[i] != '\0'; i++) if (iscntrl(input[i])) input[i] = '?';
     return input;
 }
+
+size_t calcPaddedWidth(size_t unpaddedWidth) {
+    return 8 - unpaddedWidth % 8 + unpaddedWidth;
+}
