@@ -1,4 +1,4 @@
-CC = gcc
+CC ?= gcc
 
 EXTRA_FLAGS = -pedantic -g
 
