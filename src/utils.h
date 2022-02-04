@@ -115,6 +115,6 @@ char *removeControlChars(char *input);
  */
 void panic(const char *reason);
 
-
+size_t calcPaddedWidth(size_t unpaddedWidth);
 
 #endif

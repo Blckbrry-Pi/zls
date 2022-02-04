@@ -141,5 +141,9 @@ int main(int argc, char **argv) {
     }
     printf("\n");
 
+    for (i = 0; i < entryCount; i++) free(fileArr[i].name);
+
+    free(fileArr);
+
     return 0;
 }
