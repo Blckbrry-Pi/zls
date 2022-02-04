@@ -1,6 +1,6 @@
 CC = gcc
 
-EXTRA_FLAGS = -pedantic
+EXTRA_FLAGS = -pedantic -g
 
 LIBS = utils dirtraversal argparse closures inforetriever
 LIB_OBJECTS = $(addprefix $(BUILD_DIR)$(LIB_SUB_DIR), $(LIBS:=.o))

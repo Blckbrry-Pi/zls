@@ -26,7 +26,7 @@ char *dsprintf(char *fmt, ...) {
     out = malloc(sizeof(char) * (len + 1));
 
 
-    vsprintf(out, fmt, args1);
+    vsprintf(out, fmt, args2);
     va_end(args2);
 
     return out;

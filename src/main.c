@@ -96,14 +96,9 @@ int main(int argc, char **argv) {
     // files in the directory.
     fileArr = malloc(entryCount * sizeof(FileInfo));
 
-    printf("%p", fileArr);
-
-    printf("Entry Count: %d\n", entryCount);
-
     // Creates a list that can have new file data appended to it.
     entryList = (EntryList) { 0, entryCount, fileArr, argz.file };
     dirForEach(argz.file, (DirTraversalClosure) { addEntry, &entryList });
-    printf("alsdhfafilsnuiocun\n");
 
     // Sorts the data by name, could be expanded to be more general
     // later.
