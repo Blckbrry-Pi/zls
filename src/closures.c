@@ -82,12 +82,8 @@ void basicPrinter(PrinterData *printerData, void *file_vp) {
         printerData->currPos = 0;
     }
 
-    if(printerData->argz.i){
-        printf("%zd %s%-*s%s\t", file->inodeNum, getEntryColor(file), (int) entryWidths->nameLength, file->name, fi); 
-    }
-    else{
-        printf("%s%-*s%s\t", getEntryColor(file), (int) entryWidths->nameLength, file->name, fi);
-    }
+    if(printerData->argz.i) printf("%llu ", (unsigned long long) file->inodeNum);
+    printf("%s%-*s%s\t", printerData->argz.Y ? getEntryColor(file) : fi, (int) entryWidths->nameLength, file->name, fi);
     
 
     printerData->currPos += extraWidth;

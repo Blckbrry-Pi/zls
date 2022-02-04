@@ -5,6 +5,6 @@
 
 extern const char *fi;
 
-char *getEntryColor(FileInfo *f);
+const char *getEntryColor(FileInfo *f);
 
 #endif
