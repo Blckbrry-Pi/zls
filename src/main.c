@@ -26,18 +26,12 @@ bool filterByNameAndArgz(char *name, Argz argz) {
 }
 
 
-int main(int argc, char **argv) {
+void listFiles(Argz argz, struct winsize w, bool recursed) {
     /**
      * @brief Iterator variable.
      * 
      */
     int i;
-
-    /**
-     * @brief The parsed arguments.
-     * 
-     */
-    Argz argz;
 
     /**
      * @brief Holds the number of entries in the directory.
@@ -79,14 +73,10 @@ int main(int argc, char **argv) {
     PrinterClosure pdc;
 
     /**
-     * @brief Just a simple struct used for holding the width and height
-     * of the terminal.
+     * @brief The parsed arguments.
      * 
      */
-    struct winsize w;
-
-    // Parses the arguments
-    argz = parseArgz(argc, argv); 
+    Argz passingArgz;
 
     // Counts the number of entries in the directory.
     entryCount = 0;
@@ -129,21 +119,67 @@ int main(int argc, char **argv) {
     };
     // Create the printer data closure.
     pdc = (PrinterClosure) {
-        basicPrinter, &printerData
+        argz.one || argz.l
+            ? basicPrinter // Change this to linePrinter when you push.
+            : basicPrinter,
+        &printerData
     };
 
+    if (recursed) printf("\n%s:\n", argz.file);
 
     // Iterate through the entries and print each of them 1 by 1.
     for (i = 0; i < entryCount; i++){
-        if (filterByNameAndArgz(fileArr[i].name, argz)){
+        if (filterByNameAndArgz(fileArr[i].name, argz)) {
             CALL_CLOSURE(pdc, &fileArr[i]);           
         }
     }
     printf("\n");
 
+    for (i = 0; i < entryCount; i++) {
+        if (filterByNameAndArgz(fileArr[i].name, argz) && fileArr[i].fileType == FT_DIR) {
+            passingArgz = argz;
+            passingArgz.file = dsprintf(
+                "%s%s%s",
+                argz.file,
+                argz.file[strlen(argz.file) - 1] == '/'
+                ? ""
+                : "/",
+                fileArr[i].name
+            );
+
+
+            listFiles(passingArgz, w, true);
+
+            free(passingArgz.file);
+        }
+    }
     for (i = 0; i < entryCount; i++) free(fileArr[i].name);
 
     free(fileArr);
+}
+
+
+int main(int argc, char **argv) {
+    /**
+     * @brief The parsed arguments.
+     * 
+     */
+    Argz argz;
+
+    /**
+     * @brief Just a simple struct used for holding the width and height
+     * of the terminal.
+     * 
+     */
+    struct winsize w;
+
+    // Parses the arguments
+    argz = parseArgz(argc, argv); 
+
+    // Get terminal size and put it in w.
+    ioctl(0, TIOCGWINSZ, &w);
+
+    listFiles(argz, w, false);
 
     return 0;
 }
