@@ -6,6 +6,8 @@ Argz parseArgz(int argc, char** argv){
 	
 	Argz argz = {0};
 
+	argz.noPrintCharState = NO_PRINT_q;
+
 	//printf("argc=%d\n", argc);
 	//parsez argumentz
 	if(argc>=1){
@@ -45,6 +47,18 @@ Argz parseArgz(int argc, char** argv){
 						break;
 					case 'R':
 						argz.R=true;
+						break;
+					case 'B':
+						argz.noPrintCharState = NO_PRINT_B;
+						break;
+					case 'b':
+						argz.noPrintCharState = NO_PRINT_b;
+						break;
+					case 'w':
+						argz.noPrintCharState = NO_PRINT_w;
+						break;
+					case 'q':
+						argz.noPrintCharState = NO_PRINT_q;
 						break;
 				}
 				//printf("argz: -i: %d\n-A: %d\n-a: %d\n-l: %d\n-z: %d\n-Y: %d\n-1: %d\n-R: %d\n",argz.i,argz.A,argz.a,argz.l,argz.z,argz.Y,argz.one,argz.R);

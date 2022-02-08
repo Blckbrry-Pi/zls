@@ -5,7 +5,7 @@
 
 #define GET_PERM_NUMBER(num, readPerm, writePerm, execPerm) (((num & readPerm) ? (1 << 2) : 0) + ((num & writePerm) ? (1 << 1) : 0) + ((num & execPerm) ? (1 << 0) : 0))
 
-FileInfo infoFromPath(char *name, char *path) {
+FileInfo infoFromPath(char *name, char *path, ENoPrintCharArgz fileNameCleaningType) {
     struct stat infoStatFormat;
 
     FileInfo infoOutput;
@@ -56,6 +56,8 @@ FileInfo infoFromPath(char *name, char *path) {
     infoOutput.linkCount = infoStatFormat.st_nlink;
 
     infoOutput.name = dsprintf("%s", name);
+
+    infoOutput.cleanedName = removeControlChars(infoOutput.name, fileNameCleaningType);
 
     infoOutput.perms = (Perms) {
         GET_PERM_NUMBER(infoStatFormat.st_mode & S_IRWXU, S_IRUSR, S_IWUSR, S_IXUSR),

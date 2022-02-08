@@ -87,7 +87,7 @@ void listFiles(Argz argz, struct winsize w, bool recursed) {
     fileArr = malloc(entryCount * sizeof(FileInfo));
 
     // Creates a list that can have new file data appended to it.
-    entryList = (EntryList) { 0, entryCount, fileArr, argz.file };
+    entryList = (EntryList) { 0, entryCount, fileArr, argz.file, argz.noPrintCharState };
     dirForEach(argz.file, (DirTraversalClosure) { addEntry, &entryList });
 
     // Sorts the data by name, could be expanded to be more general
@@ -154,7 +154,7 @@ void listFiles(Argz argz, struct winsize w, bool recursed) {
             }
         }
     }
-    
+
     for (i = 0; i < entryCount; i++) free(fileArr[i].name);
 
     free(fileArr);

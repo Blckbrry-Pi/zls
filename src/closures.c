@@ -30,7 +30,7 @@ void addEntry(void *entryList_vp, void *entry_vp) {
         entry->d_name
     );
 
-    entryList->entryArr[entryList->entryPointer++] = infoFromPath(entry->d_name, path);
+    entryList->entryArr[entryList->entryPointer++] = infoFromPath(entry->d_name, path, entryList->fileNameCleaningType);
 
     free(path);
 }
@@ -45,7 +45,7 @@ void gatherLengths(LenData *textSizes, void *file_vp) {
     
     size_t groupLen = strlen(file->groupName);
     size_t ownerLen = strlen(file->ownerName);
-    size_t nameLen = strlen(file->name);
+    size_t nameLen = strlen(file->cleanedName);
 
     size_t dateLen = 12; // TODO: MAKE SURE THIS IS CORRECT!
     
@@ -83,7 +83,7 @@ void basicPrinter(PrinterData *printerData, void *file_vp) {
     }
 
     if(printerData->argz.i) printf("%*llu ", entryWidths->inodeLength, (unsigned long long) file->inodeNum);
-    printf("%s%-*s%s\t", printerData->argz.Y ? getEntryColor(file) : fi, (int) entryWidths->nameLength, file->name, fi);
+    printf("%s%-*s%s\t", printerData->argz.Y ? getEntryColor(file) : fi, (int) entryWidths->nameLength, file->cleanedName, fi);
     
 
     printerData->currPos += extraWidth;
