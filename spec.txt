@@ -8,10 +8,14 @@ The -1, -C, -x, and -l options all override each other; the last one specified d
 
 supported flags:
      -i: inode -- zsofia                                    (Basic printer closure)
-     -A: include .directories but not . and ... -- skyler   (Depends)
-     -a: include .directories -- skyler                     (Depends)
+     -A: include .directories but not . and ... -- skyler   (Based in main)
+     -a: include .directories -- skyler                     (Based in main)
      -l: long format --zsofia                               (Line printer closure)
      -z: display all files like "zzzzzz.zz" -- zsofia       (Basic printer closure)
-     -Y: clor -- skyler                                     (Basic printer closure)
+     -Y: clor -- skyler                                     (both closures)
      -1: 1 file per line -- zsofia                          (Line printer closure)
-     -R -- skyler                                           (Help, I have no idea.)
+     -R -- skyler                                           (Based in main)
+     -B -- skyler                                           (Based in removeControlChars)
+     -b -- skyler                                           (Based in removeControlChars)
+     -w -- skyler                                           (Based in removeControlChars)
+     -q -- skyler                                           (Based in removeControlChars)
