@@ -134,25 +134,27 @@ void listFiles(Argz argz, struct winsize w, bool recursed) {
         }
     }
     printf("\n");
+    if (argz.R) {
+        for (i = 0; i < entryCount; i++) {
+            if (filterByNameAndArgz(fileArr[i].name, argz) && fileArr[i].fileType == FT_DIR) {
+                passingArgz = argz;
+                passingArgz.file = dsprintf(
+                    "%s%s%s",
+                    argz.file,
+                    argz.file[strlen(argz.file) - 1] == '/'
+                    ? ""
+                    : "/",
+                    fileArr[i].name
+                );
 
-    for (i = 0; i < entryCount; i++) {
-        if (filterByNameAndArgz(fileArr[i].name, argz) && fileArr[i].fileType == FT_DIR) {
-            passingArgz = argz;
-            passingArgz.file = dsprintf(
-                "%s%s%s",
-                argz.file,
-                argz.file[strlen(argz.file) - 1] == '/'
-                ? ""
-                : "/",
-                fileArr[i].name
-            );
 
+                listFiles(passingArgz, w, true);
 
-            listFiles(passingArgz, w, true);
-
-            free(passingArgz.file);
+                free(passingArgz.file);
+            }
         }
     }
+    
     for (i = 0; i < entryCount; i++) free(fileArr[i].name);
 
     free(fileArr);
