@@ -71,7 +71,7 @@ char *removeControlChars(char *input, ENoPrintCharArgz cleanType) {
 
         
         case NO_PRINT_B:
-            for (i = 0; input[i] != '\0'; i++) {
+            for (i = 0, len = 0; input[i] != '\0'; i++) {
                 len++;
                 if (iscntrl(input[i])) len += 3; 
             }
