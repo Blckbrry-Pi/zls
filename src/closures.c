@@ -82,9 +82,56 @@ void basicPrinter(PrinterData *printerData, void *file_vp) {
         printerData->currPos = 0;
     }
 
-    if(printerData->argz.i) printf("%*llu ", entryWidths->inodeLength, (unsigned long long) file->inodeNum);
+    if(printerData->argz.z){
+        int i;
+        char printName[entryWidths->nameLength];
+        for(i=0;i<entryWidths->nameLength;i++){
+            switch(file->name[i]){
+                case '.':
+                    printName[i]='.';
+                    break;
+                case ' ':
+                    printName[i]=' ';
+                    break;
+                case '-':
+                    printName[i]='-';
+                    break;
+                case ':':
+                    printName[i]=':';
+                    break;
+                case '/':
+                    printName[i]='/';
+                    break;
+                default:
+                    printName[i]='z';
+                    break;
+            }
+        }
+        printf("%s",*printName);
+    }
+
+    if(printerData->argz.i){
+        printf("%*llu ", entryWidths->inodeLength, (unsigned long long) file->inodeNum);
+    }
     printf("%s%-*s%s\t", printerData->argz.Y ? getEntryColor(file) : fi, (int) entryWidths->nameLength, file->name, fi);
+    
     
 
     printerData->currPos += extraWidth;
+}
+
+void linePrinter(PrinterData *printerData, void *file_vp){
+    FileInfo *file=(FileInfo *)file_vp;
+    file->perms.
+    if(printerData->argz.l){
+        //in case its not obvious, i didnt get to this part yet. if you want to do the spacing rn,
+        //feel free to. i'll try to figure out this part before its due lol :pain:
+
+        printf("")
+
+    }
+    else{
+        printf("%s\n",file->name);
+    }
+
 }

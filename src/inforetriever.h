@@ -27,7 +27,7 @@ typedef struct {
     char ownerPerms; // Octal number representing owner permissions.
     char groupPerms; // Octal number representing group permissions.
     char otherPerms; // Octal number representing everyone else's permissions
-    bool hasExAttr;  // Unimplemented, but should hold whether the file has extended attributes.
+    bool hasExAttr;  // Unimplemented, but should hold whether the file has extended attributes. no htnak you.
 } Perms;
 
 /**
