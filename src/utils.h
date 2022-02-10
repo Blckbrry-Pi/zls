@@ -8,6 +8,8 @@
 #ifndef ZLS_UTILS_H
 #define ZLS_UTILS_H
 
+#include "argparse.h"
+
 #include <stdbool.h>
 #include <ctype.h>
 #include <stddef.h>
@@ -104,7 +106,7 @@ unsigned char numberLength(size_t number);
  * @return The same string passed in, with the control characters
  * replaced.
  */
-char *removeControlChars(char *input);
+char *removeControlChars(char *input, ENoPrintCharArgz cleanType);
 
 /**
  * @brief Call this function when you want to exit the program because

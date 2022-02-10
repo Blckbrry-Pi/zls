@@ -1,4 +1,5 @@
 #include "utils.h"
+#include "string.h"
 
 #include <stdarg.h>
 #include <stdio.h>
@@ -49,9 +50,45 @@ void panic(const char *reason) {
 }
 
 
-char *removeControlChars(char *input) {
-    for (int i = 0; input[i] != '\0'; i++) if (iscntrl(input[i])) input[i] = '?';
-    return input;
+char *removeControlChars(char *input, ENoPrintCharArgz cleanType) {
+    char *outStr;
+    size_t i;
+    size_t j;
+    size_t len;
+    switch (cleanType) {
+        case NO_PRINT_q: 
+            outStr = malloc(sizeof(char) * (strlen(input) + 1));
+            strcpy(outStr, input);
+            for (i = 0; outStr[i] != '\0'; i++) if (iscntrl(outStr[i])) outStr[i] = '?';
+            break;
+
+        case NO_PRINT_w:
+            outStr = dsprintf("%s", input);
+            break;
+
+        case NO_PRINT_b:
+            panic(dsprintf("Unimplemented [TODO]! (Line: %zd, File: %s)", __LINE__, __FILE__)); // TODO: get this working.
+
+        
+        case NO_PRINT_B:
+            for (i = 0, len = 0; input[i] != '\0'; i++) {
+                len++;
+                if (iscntrl(input[i])) len += 3; 
+            }
+            outStr = malloc(sizeof(char) * (len + 1));
+            for (i = 0, j = 0; input[i] != '\0'; i++) {
+                if (iscntrl(input[i])) {
+                    sprintf(outStr + j, "\\%03o", input[i]);
+                    j += 4;
+                } else {
+                    outStr[j] = input[i];
+                    j += 1;
+                }
+            }
+            outStr[j] = '\0';
+            break;
+    }
+    return outStr;
 }
 
 size_t calcPaddedWidth(size_t unpaddedWidth) {

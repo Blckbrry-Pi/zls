@@ -14,6 +14,7 @@ typedef struct {
     FileInfo *entryArr;
 
     char *dirname;
+    ENoPrintCharArgz fileNameCleaningType;
 } EntryList;
 
 void addEntry(void *entryList_vp, void *entry_vp);
