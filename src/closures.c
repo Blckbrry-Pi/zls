@@ -120,7 +120,6 @@ void basicPrinter(PrinterData *printerData, void *file_vp) {
 
 void linePrinter(PrinterData *printerData, void *file_vp){
     FileInfo *file=(FileInfo *)file_vp;
-    file->perms.
     if(printerData->argz.l){
         //in case its not obvious, i didnt get to this part yet. if you want to do the spacing rn,
         //feel free to. i'll try to figure out this part before its due lol :pain:
