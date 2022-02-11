@@ -47,8 +47,6 @@ CREATE_CLOSURE_TYPE(void, PrinterData *, PrinterClosure);
 
 void basicPrinter(PrinterData *printerData, void *entry_vp);
 
-CREATE_CLOSURE_TYPE(void, PrinterData *, PrinterClosure);
-
 void linePrinter(PrinterData *printerData, void *entry_vp);
 
 

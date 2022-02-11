@@ -5,7 +5,7 @@
 
 #include <dirent.h>
 #include <stdio.h>
-#include <strings.h>
+#include <string.h>
 #include <stdlib.h>
 
 #define IF_MORE_SET(lvalue, comparisonNumber) if (comparisonNumber > lvalue) lvalue = comparisonNumber
@@ -124,7 +124,7 @@ void linePrinter(PrinterData *printerData, void *file_vp){
         //in case its not obvious, i didnt get to this part yet. if you want to do the spacing rn,
         //feel free to. i'll try to figure out this part before its due lol :pain:
 
-        printf("")
+        printf("");
 
     }
     else{
