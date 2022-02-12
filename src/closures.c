@@ -84,30 +84,24 @@ void basicPrinter(PrinterData *printerData, void *file_vp) {
 
     if(printerData->argz.z){
         int i;
-        char printName[entryWidths->nameLength];
-        for(i=0;i<entryWidths->nameLength;i++){
-            switch(file->name[i]){
+        //char printName[entryWidths->nameLength];
+        //printName[(entryWidths->nameLength)-1]='\0';
+        //printf("entryWidths->nameLength: %lu, file->cleanedName.length: %lu\n",entryWidths->nameLength,strlen(file->cleanedName));
+        for(i=0;i<strlen(file->cleanedName);i++){
+            switch(file->cleanedName[i]){
+                case '\t':
                 case '.':
-                    printName[i]='.';
-                    break;
                 case ' ':
-                    printName[i]=' ';
-                    break;
                 case '-':
-                    printName[i]='-';
-                    break;
                 case ':':
-                    printName[i]=':';
-                    break;
                 case '/':
-                    printName[i]='/';
                     break;
                 default:
-                    printName[i]='z';
+                    file->cleanedName[i]='z';
                     break;
             }
         }
-        printf("%s",*printName);
+        //printf("original: %s\n formatted: %s\n",file->cleanedName, printName);
     }
 
     if(printerData->argz.i) printf("%*llu ", entryWidths->inodeLength, (unsigned long long) file->inodeNum);
@@ -123,8 +117,10 @@ void linePrinter(PrinterData *printerData, void *file_vp){
     if(printerData->argz.l){
         //in case its not obvious, i didnt get to this part yet. if you want to do the spacing rn,
         //feel free to. i'll try to figure out this part before its due lol :pain:
+        //eacg perm set(ownsekr, group, aother) ahs perms preperesented by an coctla njmber
 
-        printf("");
+
+       // printf("");
 
     }
     else{
