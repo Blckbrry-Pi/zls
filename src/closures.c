@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define IF_MORE_SET(lvalue, comparisonNumber) if (comparisonNumber > lvalue) lvalue = comparisonNumber
 
@@ -59,6 +60,53 @@ void gatherLengths(LenData *textSizes, void *file_vp) {
     IF_MORE_SET(textSizes->nameLength, nameLen);
     
     IF_MORE_SET(textSizes->dateLength, dateLen);
+}
+
+void permtos3(int perm, char* s){
+
+        s[0]=perm & 04 ? 'r' : '-';
+        s[1]=perm & 02 ? 'w' : '-';
+        s[2]=perm & 01 ? 'x' : '-';
+
+}
+
+char enumtochar(EFileType fileType){
+    char c;
+    switch(fileType){
+        case(FT_REG):
+            c='-';
+            break;
+        case(FT_DIR):
+            c='d';
+            break;
+        case(FT_LINK):
+            c='l';
+            break;
+        case(FT_FIFO):
+            c='p';
+            break;
+        case(FT_SOCK):
+            c='s';
+            break;
+        case(FT_CHAR):
+            c='c';
+            break;
+        case(FT_BLCK):
+            c='b';
+            break;
+        case(FT_DOOR):
+            c='D';
+            break;
+        default:
+            c='?';
+            break;
+    }
+    return c;
+}
+
+void timestampToTime(time_t timestamp,struct tm* timeInfo){
+    timeInfo=localtime(&timestamp);
+    
 }
 
 //TODO: check for -i and include inode, cehck for -z and nclude zzzz.z.zz.zzzz
@@ -115,12 +163,24 @@ void basicPrinter(PrinterData *printerData, void *file_vp) {
 void linePrinter(PrinterData *printerData, void *file_vp){
     FileInfo *file=(FileInfo *)file_vp;
     if(printerData->argz.l){
-        //in case its not obvious, i didnt get to this part yet. if you want to do the spacing rn,
-        //feel free to. i'll try to figure out this part before its due lol :pain:
-        //eacg perm set(ownsekr, group, aother) ahs perms preperesented by an coctla njmber
+        char permstr[11];
+        permstr[9]='\0';
+        permstr[0]=enumtochar(file->fileType);
+        permtos3(file->perms.ownerPerms,&permstr[1]);
+        permtos3(file->perms.groupPerms,&permstr[4]);
+        permtos3(file->perms.otherPerms,&permstr[7]);
+        
+        time_t timestamp = file->lastModified;
+        struct tm* timeInfo=localtime(&timestamp);
+        //printf("size of timeinfo: %lu, date: %d \n",sizeof(timeInfo),timeInfo.tm_mday);
+        //timestampToTime(timestamp,&timeInfo);
+        //printf("size of timeinfo: %lu, date: %d \n",sizeof(timeInfo),timeInfo.tm_mday);
+        //printf("\nday: %d\n",(&timeInfo)->tm_mday);
 
 
-       // printf("");
+
+
+        printf("%s   %lu   %s   %s   %lu   %d/%d/%d   %s\n",permstr,file->linkCount,file->ownerName,file->groupName,file->fileOrMetaSize,(timeInfo->tm_mon)+1,timeInfo->tm_mday,(timeInfo->tm_year)+1900,file->cleanedName);
 
     }
     else{

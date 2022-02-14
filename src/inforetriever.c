@@ -1,5 +1,8 @@
+#include <stdlib.h>
 #include <sys/stat.h>
-
+#include <sys/types.h>
+#include <pwd.h>
+#include <grp.h>
 #include "inforetriever.h"
 #include "utils.h"
 
@@ -43,9 +46,10 @@ FileInfo infoFromPath(char *name, char *path, ENoPrintCharArgz fileNameCleaningT
         case S_IFSOCK:
             infoOutput.fileType = FT_SOCK;
     }
-
-    infoOutput.groupName = "TODO: MAKE IT ACTUALLY GET THE GROUP NAME...";
-    infoOutput.ownerName = "TODO: MAKE IT ACTUALLY GET THE OWNER NAME...";
+    
+    //TOTOL: check for null uid and gid
+    infoOutput.ownerName = getpwuid(infoStatFormat.st_uid)->pw_name;    
+    infoOutput.groupName = getgrgid(infoStatFormat.st_gid)->gr_name;   
 
     #if !defined(_POSIX_C_SOURCE) || defined(_DARWIN_C_SOURCE)
     infoOutput.lastModified = infoStatFormat.st_mtimespec.tv_sec;

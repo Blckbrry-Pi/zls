@@ -120,7 +120,7 @@ void listFiles(Argz argz, struct winsize w, bool recursed) {
     // Create the printer data closure.
     pdc = (PrinterClosure) {
         argz.one || argz.l
-            ? basicPrinter // Change this to linePrinter when you push.
+            ? linePrinter // Change this to linePrinter when you push.
             : basicPrinter,
         &printerData
     };
