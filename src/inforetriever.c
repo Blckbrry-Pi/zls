@@ -46,10 +46,19 @@ FileInfo infoFromPath(char *name, char *path, ENoPrintCharArgz fileNameCleaningT
         case S_IFSOCK:
             infoOutput.fileType = FT_SOCK;
     }
-    
-    //TOTOL: check for null uid and gid
-    infoOutput.ownerName = getpwuid(infoStatFormat.st_uid)->pw_name;    
-    infoOutput.groupName = getgrgid(infoStatFormat.st_gid)->gr_name;   
+
+    infoOutput.ownerName = getpwuid(infoStatFormat.st_uid)->pw_name;
+    infoOutput.groupName = getgrgid(infoStatFormat.st_gid)->gr_name;
+    if(infoOutput.ownerName==NULL){
+       infoOutput.ownerName = "NULL"; 
+    }
+    if(infoOutput.groupName==NULL){
+        infoOutput.groupName="NULL";
+    }   
+
+
+   // infoOutput.ownerName = getpwuid(infoStatFormat.st_uid)->pw_name;    
+    //infoOutput.groupName = getgrgid(infoStatFormat.st_gid)->gr_name;   
 
     #if !defined(_POSIX_C_SOURCE) || defined(_DARWIN_C_SOURCE)
     infoOutput.lastModified = infoStatFormat.st_mtimespec.tv_sec;

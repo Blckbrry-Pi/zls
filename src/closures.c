@@ -184,7 +184,8 @@ void linePrinter(PrinterData *printerData, void *file_vp){
 
     }
     else{
-        printf("%s\n",file->name);
+        //basicPrinter();
+        printf("\n");
     }
 
 }
