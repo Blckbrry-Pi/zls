@@ -155,7 +155,12 @@ void listFiles(Argz argz, struct winsize w, bool recursed) {
         }
     }
 
-    for (i = 0; i < entryCount; i++) free(fileArr[i].name);
+    for (i = 0; i < entryCount; i++) {
+        free(fileArr[i].name);
+        free(fileArr[i].cleanedName);
+        free(fileArr[i].ownerName);
+        free(fileArr[i].groupName);
+    }
 
     free(fileArr);
 }
