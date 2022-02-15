@@ -164,7 +164,7 @@ void linePrinter(PrinterData *printerData, void *file_vp){
     FileInfo *file=(FileInfo *)file_vp;
     if(printerData->argz.l){
         char permstr[11];
-        permstr[9]='\0';
+        permstr[10]='\0';
         permstr[0]=enumtochar(file->fileType);
         permtos3(file->perms.ownerPerms,&permstr[1]);
         permtos3(file->perms.groupPerms,&permstr[4]);
@@ -177,10 +177,23 @@ void linePrinter(PrinterData *printerData, void *file_vp){
         //printf("size of timeinfo: %lu, date: %d \n",sizeof(timeInfo),timeInfo.tm_mday);
         //printf("\nday: %d\n",(&timeInfo)->tm_mday);
 
+        LenData lengthData = printerData->entryWidths;
 
 
 
-        printf("%s   %lu   %s   %s   %lu   %d/%d/%d   %s\n",permstr,file->linkCount,file->ownerName,file->groupName,file->fileOrMetaSize,(timeInfo->tm_mon)+1,timeInfo->tm_mday,(timeInfo->tm_year)+1900,file->cleanedName);
+
+        printf(
+            "%s   %*lu   %*s   %*s   %*lu   %2d/%2d/%4d   %s\n",
+            permstr,
+            (int) lengthData.linkLength, file->linkCount,
+            (int) lengthData.ownerLength, file->ownerName,
+            (int) lengthData.groupLength, file->groupName,
+            (int) lengthData.fOrMetaSizeLength, file->fileOrMetaSize,
+            (timeInfo->tm_mon) + 1,
+            timeInfo->tm_mday,
+            (timeInfo->tm_year) + 1900,
+            file->cleanedName
+        );
 
     }
     else{
