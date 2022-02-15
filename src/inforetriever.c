@@ -46,14 +46,18 @@ FileInfo infoFromPath(char *name, char *path, ENoPrintCharArgz fileNameCleaningT
         case S_IFSOCK:
             infoOutput.fileType = FT_SOCK;
     }
-
-    infoOutput.ownerName = getpwuid(infoStatFormat.st_uid)->pw_name;
-    infoOutput.groupName = getgrgid(infoStatFormat.st_gid)->gr_name;
-    if(infoOutput.ownerName==NULL){
-       infoOutput.ownerName = "NULL"; 
+    struct passwd *owner = getpwuid(infoStatFormat.st_uid);
+    if (owner != NULL) {
+        infoOutput.ownerName = dsprintf("%s", owner->pw_name);
+    } else {
+        infoOutput.ownerName = dsprintf("%d", infoStatFormat.st_uid);
     }
-    if(infoOutput.groupName==NULL){
-        infoOutput.groupName="NULL";
+    
+    struct group *group = getgrgid(infoStatFormat.st_gid);
+    if (group != NULL) {
+        infoOutput.groupName = dsprintf("%s", group->gr_name);
+    } else{
+        infoOutput.groupName = dsprintf("%d", infoStatFormat.st_gid);
     }   
 
 
