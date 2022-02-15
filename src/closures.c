@@ -197,8 +197,10 @@ void linePrinter(PrinterData *printerData, void *file_vp){
 
     }
     else{
-        //basicPrinter();
-        printf("\n");
+        basicPrinter(printerData, file_vp);
+        if (printerData->currPos) {
+            printerData->currPos = 0;
+        }
     }
 
 }

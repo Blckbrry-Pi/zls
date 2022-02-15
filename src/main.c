@@ -133,7 +133,9 @@ void listFiles(Argz argz, struct winsize w, bool recursed) {
             CALL_CLOSURE(pdc, &fileArr[i]);           
         }
     }
-    printf("\n");
+    if (pdc.closureData->currPos) printf("\n");
+    
+    
     if (argz.R) {
         for (i = 0; i < entryCount; i++) {
             char *name = fileArr[i].name;
