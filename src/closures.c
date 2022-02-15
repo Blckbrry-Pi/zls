@@ -183,7 +183,7 @@ void linePrinter(PrinterData *printerData, void *file_vp){
 
 
         printf(
-            "%s   %*lu   %*s   %*s   %*lu   %2d/%2d/%4d   %s\n",
+            "%s  %*lu %-*s  %-*s  %*lu  %2d/%2d/%4d  %s\n",
             permstr,
             (int) lengthData.linkLength, file->linkCount,
             (int) lengthData.ownerLength, file->ownerName,
